@@ -16,7 +16,6 @@ This project aims to develop a machine learning model to estimate the **final sa
 - **Data Location:** FTP server provided by idxexchange.com
     - Host: `ftp.boxgrad.com`
     - Username: `data@idxexchange.com`
-    - Password: `Real_estate123$`
     - Port: `21`
 - **Relevant Files:** In the `/raw/California` folder with prefix `CRMLSSold`
 - **Meta Data Documentation:** `Trestle Property MetaData.pdf` in the `resources` folder
