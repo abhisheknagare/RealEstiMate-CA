@@ -21,18 +21,18 @@ output_dir = './output'
 os.makedirs(output_dir, exist_ok=True)
 
 # # Load data
-# sold01 = pd.read_csv('./dataset/CRMLSSold202412.csv')
-# sold02 = pd.read_csv('./dataset/CRMLSSold202501_filled.csv')
-# sold03 = pd.read_csv('./dataset/CRMLSSold202502.csv')
-# sold04 = pd.read_csv('./dataset/CRMLSSold202503.csv')
-# sold05 = pd.read_csv('./dataset/CRMLSSold202504.csv')
-# sold06 = pd.read_csv('./dataset/CRMLSSold202505.csv')
+sold01 = pd.read_csv('./dataset/CRMLSSold202412.csv')
+sold02 = pd.read_csv('./dataset/CRMLSSold202501_filled.csv')
+sold03 = pd.read_csv('./dataset/CRMLSSold202502.csv')
+sold04 = pd.read_csv('./dataset/CRMLSSold202503.csv')
+sold05 = pd.read_csv('./dataset/CRMLSSold202504.csv')
+sold06 = pd.read_csv('./dataset/CRMLSSold202505.csv')
 
-# # Combine all datasets
-# all_data = pd.concat([sold01, sold02, sold03, sold04, sold05, sold06], ignore_index=True)
+# Combine all datasets
+all_data = pd.concat([sold01, sold02, sold03, sold04, sold05, sold06], ignore_index=True)
 
 # Load test dataset
-all_data = pd.read_csv('./dataset/CRMLSSold202506.csv')
+# all_data = pd.read_csv('./dataset/CRMLSSold202506.csv')
 
 # Reorder columns so first column is ClosePrice
 cols_first = ['ClosePrice']
@@ -46,7 +46,7 @@ all_data = all_data[
     (all_data['ClosePrice'].notna())
 ]
 
-# Remove possible duplicates - Jun
+# Remove possible duplicates 
 all_data = all_data.drop_duplicates()
 
 # Drop irrelevant columns
@@ -73,7 +73,7 @@ features_to_drop = [
 # Drop columns from the DataFrame
 all_data = all_data.drop(columns=[col for col in features_to_drop if col in all_data.columns])
 
-# Processing rows with missing zip, Latitude, and Longitude - Hazel & Jun
+# Processing rows with missing zip, Latitude, and Longitude
 missing_loc_data = all_data[(all_data['Latitude'].isna()) | 
                             (all_data['Longitude'].isna()) |
                             (all_data['PostalCode'].str.len() != 5)]
@@ -123,10 +123,10 @@ all_data['City'] = all_data['City'].fillna(all_data['UnparsedAddress'].map(city)
 all_data = all_data.dropna(subset=['Latitude', 'Longitude'])
 all_data = all_data.dropna(subset=['PostalCode', 'City'])
 
-# Remove outliers in isolated areas of California - Jun
+# Remove outliers in isolated areas of California
 all_data = all_data[(all_data['Latitude']>30)&(all_data['Longitude']<-50)]
 
-# Macro Features - Tara
+# Macro Features
 # including: Unemployment Rate, Inflation Rate, Interest Rate, CA Sales tax, Mortgage Rate 30 fixed
 data_unemploy = pd.read_csv("./dataset/UNRATE.csv")
 data_cpi = pd.read_csv("./dataset/CPIAUCNS.csv")
@@ -187,7 +187,7 @@ for col in macro_cols:
     median_val = all_data[col].median()
     all_data[col] = all_data[col].fillna(median_val)
 
-# Encode properties outside of top 20 cities as Other city - Jun
+# Encode properties outside of top 20 cities as Other city 
 city_count = all_data["City"].value_counts()
 other_cities = city_count[city_count<=450].index.tolist()
 all_data['City']=all_data['City'].replace(other_cities, 'Others')
@@ -202,7 +202,7 @@ lower = all_data['ClosePrice'].quantile(0.01)
 upper = all_data['ClosePrice'].quantile(0.99)
 all_data = all_data[(all_data['ClosePrice'] >= lower) & (all_data['ClosePrice'] <= upper)]
 
-# Remove outliers from property features - Tara
+# Remove outliers from property features 
 property_features = [
     'LivingArea', 'BathroomsTotalInteger','BedroomsTotal', 'Stories',
     'GarageSpaces', 'LotSizeSquareFeet'
@@ -213,7 +213,7 @@ for col in property_features:
     upper = all_data[col].quantile(0.99)
     all_data = all_data[(all_data[col] >= lower) & (all_data[col] <= upper)]
 
-# Calculate House Age - Tommy
+# Calculate House Age 
 current_year = datetime.now().year
 all_data['Age'] = current_year - all_data['YearBuilt']
 
@@ -221,19 +221,20 @@ all_data['Age'] = current_year - all_data['YearBuilt']
 all_data['LotDensity'] = all_data['LotSizeSquareFeet'] / all_data['LivingArea']
 all_data['LotDensity'].replace([np.inf, -np.inf], np.nan, inplace=True)
 
-# Impute missing values (Median imputation for missing values, since the data is right-skewed) - Tara
+# Impute missing values (Median imputation for missing values, since the data is right-skewed)
 all_data['LivingArea'] = all_data['LivingArea'].fillna(all_data['LivingArea'].median())
 all_data['Stories'] = all_data['Stories'].fillna(all_data['Stories'].median())
 all_data['GarageSpaces'] = all_data['GarageSpaces'].fillna(all_data['GarageSpaces'].median())
 all_data['LotSizeSquareFeet'] = all_data['LotSizeSquareFeet'].fillna(all_data['LotSizeSquareFeet'].median())
 all_data['LotDensity'].fillna(all_data['LotDensity'].median(), inplace=True)
 
-# Handle boolean facilities - Abhishek
+# Handle boolean facilities 
+# Dropping 5 features due to > 80% Nan values - WaterfrontYN, BasementYN, FireplacesTotal, BuilderName, CoveredSpaces
 facilities_features_bool = [
     'ViewYN','PoolPrivateYN', 'AttachedGarageYN',
     'ParkingTotal', 'FireplaceYN', 'NewConstructionYN'
 ]
-# Hazel Note: filled with 0 instead of -1 as per discussed in the meeting
+# filled with 0 instead of -1 as per discussed in the meeting
 all_data[facilities_features_bool] = all_data[facilities_features_bool].fillna(0).astype(int)
 
 # Flooring: one-hot encode multi-label values
@@ -248,10 +249,10 @@ flooring_dummies = pd.DataFrame(
 all_data = pd.concat([all_data, flooring_dummies], axis=1)
 all_data.drop(columns='Flooring', inplace=True)
 
-# Dropping properties outside of California - Jun
+# Dropping properties outside of California 
 all_data = all_data[all_data["StateOrProvince"]=="CA"]
 
-# Create GeoDataFrame from coordinates - Hazel
+# Create GeoDataFrame from coordinates 
 geometry = [Point(xy) for xy in zip(all_data['Longitude'], all_data['Latitude'])]
 homes_gdf = gpd.GeoDataFrame(all_data, geometry=geometry, crs="EPSG:4326")
 
