@@ -298,4 +298,4 @@ all_data = all_data.drop(columns=[
 # Save test set to CSV
 all_data.to_csv(os.path.join(output_dir, 'test_cleaned_data.csv'), index=False)
 
-print("✅ Pipeline completed. Cleaned data saved to ./output/test_cleaned_data.csv")
+print("✅ Pipeline completed. Cleaned data saved to ./output/complete_cleaned_data.csv")
