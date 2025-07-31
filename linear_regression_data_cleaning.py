@@ -290,11 +290,6 @@ all_data = all_data.drop(columns=[
     'PostalCode', 'geometry', 
     ])
 
-# # Save to CSV
-# all_data.to_csv(os.path.join(output_dir, 'complete_cleaned_data.csv'), index=False)
-
-# print("✅ Pipeline completed. Cleaned data saved to ./output/complete_cleaned_data.csv")
-
 # Save test set to CSV
 all_data.to_csv(os.path.join(output_dir, 'test_cleaned_data.csv'), index=False)
 
