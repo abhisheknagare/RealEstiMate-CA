@@ -50,7 +50,7 @@ I experimented with four different regression models to compare predictive perfo
 1.	Linear Regression – Baseline model to establish a reference R² score.
 2.	Random Forest Regressor – Captures non-linear relationships with ensemble learning.
 3.	XGBoost Regressor – Gradient boosting model optimized for performance on structured data.
-4.	HistGradientBoostingRegressor – A fast, histogram-based gradient boosting implementation.
+4.	HistGradientBoosting Regressor – A fast, histogram-based gradient boosting implementation.
 
 ⸻
 
