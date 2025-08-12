@@ -47,10 +47,10 @@ To ensure consumer usability, I excluded any fields not available for properties
 ## Modeling Approach
 
 I experimented with four different regression models to compare predictive performance:
-	1.	Linear Regression – Baseline model to establish a reference R² score.
-	2.	Random Forest Regressor – Captures non-linear relationships with ensemble learning.
-	3.	XGBoost Regressor – Gradient boosting model optimized for performance on structured data.
-	4.	HistGradientBoostingRegressor – A fast, histogram-based gradient boosting implementation.
+1.	Linear Regression – Baseline model to establish a reference R² score.
+2.	Random Forest Regressor – Captures non-linear relationships with ensemble learning.
+3.	XGBoost Regressor – Gradient boosting model optimized for performance on structured data.
+4.	HistGradientBoostingRegressor – A fast, histogram-based gradient boosting implementation.
 
 ⸻
 
@@ -62,8 +62,8 @@ I experimented with four different regression models to compare predictive perfo
 - Mean Absolute Percentage Error (MAPE)
 
 ### Key findings:
-- Linear Regression achieved an R² of X% (baseline).
-- Random Forest and XGBoost significantly improved performance, with XGBoost giving the best R² of ~XX%.
+- Linear Regression achieved an R² of 79% (baseline).
+- Random Forest and XGBoost significantly improved performance, with XGBoost giving the best R² of ~88%.
 - HistGradientBoostingRegressor performed closely to XGBoost but with faster training times.
 
 ⸻
@@ -99,4 +99,4 @@ This project demonstrates my ability to:
 
 ## Project Goal
 
-To build a robust, user-focused machine learning model that accurately predicts the close price of any single-family residential property in California using only features available to consumers—enabling integration into a web application for real-time property value estimation.
+To build a robust, user-focused machine learning model that accurately predicts the close price of any single-family residential property in California using only features available to consumers enabling integration into a web application for real-time property value estimation.
