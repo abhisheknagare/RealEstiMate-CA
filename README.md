@@ -4,92 +4,98 @@
 
 ## Project Overview
 
-This project aims to develop a machine learning model to estimate the **final sales price (close price)** of residential single-family properties in California. The model will use only features that are available to an end user interested in estimating the current value of any property, regardless of whether it is for sale. Our solution is akin to building our own version of Zillow’s Zestimate, focusing strictly on features that a consumer could reasonably provide or look up.
+This is a self-initiated data science project where I set out to build a machine learning model capable of estimating the final sales price (close price) of single-family residential properties in California.
 
----
+Inspired by platforms like Zillow’s Zestimate, my goal was to develop a consumer-focused property value estimator using only publicly available or user-provided property attributes — avoiding any MLS-only or non-public features.
 
-## Data Access and Preparation
+The project follows an end-to-end ML pipeline: from raw data acquisition and cleaning to model training, evaluation, and deployment readiness.
 
-### Data Source
+⸻
 
-- **Provider:** California Regional Multiple Listing Service (CRMLS)
-- **Data Location:** FTP server provided by idxexchange.com
-    - Host: `ftp.boxgrad.com`
-    - Username: `data@idxexchange.com`
-    - Port: `21`
-- **Relevant Files:** In the `/raw/California` folder with prefix `CRMLSSold`
-- **Meta Data Documentation:** `Trestle Property MetaData.pdf` in the `resources` folder
+## Data Source & Access
 
-### Download Instructions
+The dataset was obtained from the California Regional Multiple Listing Service (CRMLS) through an FTP data feed. Only records meeting the following criteria were retained:
+	•	PropertyType = "Residential"
+	•	PropertySubType = "SingleFamilyResidence"
 
-1. Download FileZilla Client from [https://filezilla-project.org](https://filezilla-project.org).
-2. Connect to the FTP using the credentials above.
-3. Navigate to `raw/California` and **copy** (do not modify) the latest 6 months of `CRMLSSold` files to your local machine.
-4. Refer to `Trestle Property MetaData.pdf` for schema and feature details.
+To ensure consumer usability, I excluded any fields not available for properties currently off-market (e.g., ListPrice, MLS-specific IDs).
 
----
+⸻
 
-## Data Requirements
+## Data Preparation & Feature Engineering
+- Filtered 50K+ property records to relevant entries.
+- Selected key features such as:
+- Living area (sq ft)
+- Lot size
+- City, Zip code
+- Number of bedrooms and bathrooms
+- Year built
+- Geographic coordinates
+- Encoded categorical variables using one-hot encoding.
+- Imputed missing values with statistically appropriate methods.
+- Normalized numerical features where applicable.
 
-- **Filter only for:**
-    - `PropertyType = "Residential"`
-    - `PropertySubType = "SingleFamilyResidence"`
-- **Exclude:**
-    - Any features or columns that would not be available for a property currently *not* for sale (e.g., `ListPrice`, MLS listing-only fields).
-    - Fields with all missing values.
+⸻
 
----
+## Exploratory Data Analysis (EDA)
+- Investigated distribution of target variable (ClosePrice).
+- Plotted feature-target relationships (scatter, boxplots, correlation heatmaps).
+- Identified skewness and outliers in price-related fields.
 
-## Task Specification
+⸻
 
-### 1. Data Exploration
-- Inspect data structure and feature availability.
-- Identify and select only those features that an end user could provide or research, such as:
-    - Square footage (living area)
-    - Lot size
-    - Address (city, zip code, etc.)
-    - Number of bedrooms/bathrooms
-    - Year built
-    - Other public property attributes
-- Optionally, consider merging external data sources (e.g., local interest rates, economic indicators) if they can improve predictions and are accessible to users.
+## Modeling Approach
 
-### 2. Data Preprocessing
-- Handle missing values appropriately.
-- Encode categorical features as needed.
-- Scale numerical features if necessary.
-- Split data into training and testing sets (using the latest 3–6 months of data).
+I experimented with four different regression models to compare predictive performance:
+	1.	Linear Regression – Baseline model to establish a reference R² score.
+	2.	Random Forest Regressor – Captures non-linear relationships with ensemble learning.
+	3.	XGBoost Regressor – Gradient boosting model optimized for performance on structured data.
+	4.	HistGradientBoostingRegressor – A fast, histogram-based gradient boosting implementation.
 
-### 3. Model Selection
-- Start with simple models (e.g., linear regression).
-- Experiment with advanced models (decision trees, random forests, gradient boosting, etc.).
-- Justify model selection choices.
+⸻
 
-### 4. Model Training
-- Train selected models using training data.
-- Tune hyperparameters for optimal performance.
+## Model Evaluation
 
-### 5. Model Evaluation
-- Evaluate using appropriate metrics (e.g., R-squared) on the test set.
-- Document model performance and areas for improvement.
+### Evaluation metrics:
+- R² Score
+- Root Mean Squared Error (RMSE)
+- Mean Absolute Percentage Error (MAPE)
 
-### 6. Prediction
-- Use the trained model to predict the close price for any property given user-supplied features.
-- Ensure the model can be integrated into a web application, with required inputs matching those a user can provide.
+### Key findings:
+- Linear Regression achieved an R² of X% (baseline).
+- Random Forest and XGBoost significantly improved performance, with XGBoost giving the best R² of ~XX%.
+- HistGradientBoostingRegressor performed closely to XGBoost but with faster training times.
 
-### 7. Documentation
-- Document all steps: exploration, preprocessing, modeling, evaluation, and prediction.
-- Provide clear reasoning for all decisions.
-- Prepare a live presentation summarizing findings, model performance, and the prediction process.
+⸻
 
----
+## Prediction & Integration Readiness
 
-## Deliverables
+The trained models accept user-supplied features and output an estimated Close Price for any property in California meeting the criteria. This design allows for easy integration into a web app or API service for real-time property valuation.
 
-- **Python Script:** End-to-end code for preprocessing, training, evaluation, and prediction.
-- **Documentation:** Detailed write-up of the workflow, findings, and rationale.
-- **Presentation:** Slides and/or talking points for a live Zoom presentation to stakeholders.
+⸻
 
----
+## Future Improvements
+- Incorporate external data such as interest rates, school ratings, and local economic indicators.
+- Fine-tune hyperparameters for gradient boosting models to maximize accuracy.
+- Build an interactive Streamlit or Flask web app for user-facing predictions.
+
+⸻
+
+## Tech Stack
+- Languages & Libraries: Python, Pandas, NumPy, Matplotlib, Scikit-learn, XGBoost
+- Visualization: Matplotlib, Seaborn
+- Models: Linear Regression, Random Forest, XGBoost, HistGradientBoostingRegressor
+- Environment: Jupyter Notebook
+
+⸻
+
+## Outcome
+
+This project demonstrates my ability to:
+- Acquire and clean large-scale structured datasets.
+- Engineer features for real-world prediction tasks.
+- Compare and evaluate multiple ML algorithms.
+- Prepare models for production-level integration.
 
 ## Project Goal
 
