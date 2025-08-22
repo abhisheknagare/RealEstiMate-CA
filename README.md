@@ -107,6 +107,9 @@ To build a robust, user-focused machine learning model that accurately predicts 
 
 # My Streamlit Project
 
+Check this for a live demo
+[Live Demo]([https://idxdeployment.streamlit.app/])
+
 This is a demo of my Streamlit app.  
 
 <img width="1653" height="916" alt="Screenshot_2025-08-21_at_2 18 54 PM" src="https://github.com/user-attachments/assets/734b6f8e-f74e-4d96-aa23-f87e909506f5" />
