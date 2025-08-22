@@ -100,3 +100,13 @@ This project demonstrates my ability to:
 ## Project Goal
 
 To build a robust, user-focused machine learning model that accurately predicts the close price of any single-family residential property in California using only features available to consumers enabling integration into a web application for real-time property value estimation.
+
+# My Streamlit Project
+
+This is a demo of my Streamlit app.  
+
+![Streamlit Demo](/Users/abhisheknagare/Desktop/Screenshot_2025-08-21_at_2.19.48 PM.png)
+</br>
+![Streamlit Demo](/Users/abhisheknagare/Desktop/Screenshot_2025-08-21_at_2.18.54 PM.png)
+
+
