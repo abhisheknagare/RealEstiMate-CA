@@ -105,8 +105,8 @@ To build a robust, user-focused machine learning model that accurately predicts 
 
 This is a demo of my Streamlit app.  
 
-![Streamlit Demo](/Users/abhisheknagare/Desktop/Screenshot_2025-08-21_at_2.19.48 PM.png)
+![Streamlit Demo](Desktop/Screenshot_2025-08-21_at_2.19.48 PM.png)
 </br>
-![Streamlit Demo](/Users/abhisheknagare/Desktop/Screenshot_2025-08-21_at_2.18.54 PM.png)
+![Streamlit Demo](Desktop/Screenshot_2025-08-21_at_2.18.54 PM.png)
 
 
