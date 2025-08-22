@@ -97,10 +97,13 @@ This project demonstrates my ability to:
 - Compare and evaluate multiple ML algorithms.
 - Prepare models for production-level integration.
 
+⸻
+
 ## Project Goal
 
 To build a robust, user-focused machine learning model that accurately predicts the close price of any single-family residential property in California using only features available to consumers enabling integration into a web application for real-time property value estimation.
 
+⸻
 
 # My Streamlit Project
 
